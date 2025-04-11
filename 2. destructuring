@@ -1,0 +1,54 @@
+// 리스트에서의 구조 분해
+void main() {
+  // 아래 코드와 동일하지만 구조 분해를 사용하면 간결한 코드 작성 가능
+//   final newJeans = ["민지", "해린"];
+//   final minji = newJeans[0];
+//   final haerin = newJeans[1];
+  final [minji, haerin] = ["민지", "해린"];
+  
+  print(minji);
+  print(haerin);
+}
+
+// 리스트에서 스프레드 연산자를 이용한 구조 분해
+void main() {
+  final numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+  
+  // 스프레드 연산자를 사용하게되면 중간의 값들을 버릴 수 있음
+  final [x, y, ..., z] = numbers;
+  
+  print(x);
+  print(y);
+  print(z);
+}
+
+// 맵에서의 구조 분해
+void main() {
+  final minjiMap = {"name": "민지", "age": 19};
+ 
+  // 위 Map의 구조와 똑같은 구조로 구조 분해하면 됨
+  final {"name": name, "age": age} = minjiMap;
+  
+  print("name: $name"); // name: 민지
+  print("age: $age"); // age: 19
+}
+
+// 클래스에서의 구조 분해
+void main() {
+  final minji = Idol(name: "민지", age: 19);
+  
+  // 클래스의 생성자 구조와 똑같이 구조 분해하면 됨
+  final Idol(name: name, age: age) = minji;
+  
+  print(name); // 민지
+  print(age); // 19
+}
+
+class Idol {
+  final String name;
+  final int age;
+  
+  Idol ({
+    required this.name,
+    required this.age,
+  });
