@@ -1,0 +1,85 @@
+// 표현식 기능
+void main() {
+  String dayKor = "월요일";
+  
+  // switch문이 함수처럼 값을 반환함
+  String dayEnglish = switch (dayKor) {
+      // =>를 사용하면 switch문 조건에 맞을 때 값을 반환할 수 있음
+      "월요일" => "Monday",
+      "화요일" => "Tuesday",
+      "수요일" => "Wednesday",
+      "목요일" => "Thursday",
+      "금요일" => "Firday",
+      "토요일" => "Saturday",
+      "일요일" => "Sunday",
+      // _는 default와 같은 의미로 사용
+      _ => "Not Found",
+  };
+  
+  print(dayEnglish); // Monday
+}
+
+// 패턴 매칭 - switch문에 사용하면 더욱 복잡한 조건 사용 가능
+void switcher (dynamic anything) {
+  switch (anything) {
+    // 정확히 'aaa'문자열만 매치함
+    case "aaa":
+      print("match: aaa");
+      break;
+    // 정확히 [1, 2] 리스트만 매치함
+    case [1, 2]:
+      print("match: [1, 2]");
+      break;
+    // 3개의 값이 들어 있는 리스트를 모두 매치
+    case [_, _, _]:
+      print("match[_,_,_]");
+      break;
+    
+    // 첫 번째와 두 번째 값에 int가 입력된 Record타입을 매치
+    case (String a, int b):
+      print("match: (String: $a, int: $b)");
+      break;
+    default:
+        print("no match");
+  }
+}
+
+void main() {
+  switcher("aaa"); // match: aaa
+  switcher([1, 2]); // match: [1, 2]
+  switcher([3, 4, 5]); // match[_,_,_] 여기서 _는 어떤 값이든 상관 없다는 의미
+  switcher([6, 7]); // no match
+  switcher(("민지", 19)); // match: (String: 민지, int: 19)
+  switcher(8); // no match
+}
+
+// 엄격한 검사
+void main() {
+  // val에 입력 될 수 있는 값은 true, false, null
+  bool? val;
+  
+  // null 조건을 입력하지 않았기 때문에 에러 발생.
+  // null case를 추가하거나 default case를 추가해야 에러가 사라짐
+  switch (val) {
+    case true:
+      print("true");
+    case false:
+      print("false");
+//     default:
+//       print("null");
+  }
+}
+
+// 보호 구문
+void main() {
+  (int a, int b) val = (1, -1);
+  
+  // default가 출력됨. 만약에 b값을 0이상으로 변경하면 1, _를 출력할 수 있음
+ switch (val) {
+   case (1, _) when val.$2 > 0:
+     print("1, _");
+     break;
+   default:
+     print("default");
+ }
+}
